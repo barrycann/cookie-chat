@@ -7,27 +7,28 @@ angular.module('chatroom').controller('mainCtrl', function($scope, messageServic
   }
 
   $scope.convertTime = function(time){
-    var hour = Number(time.slice(11, 13))-7;
-    var ampm = 'am';
-    if(hour > 12){
-      hour-= 12;
-      ampm = 'pm'
-    }
-    var minute = time.slice(14,16);
-    var date = time.slice(0, 10);
-    return hour + ":" + minute + ampm + ", " + date;
+    return messageService.convertTime(time);
   }
 
-  //The postMessage function will take whatever the user typed in (hint: look at the html and see what ng-model correlates to on the input box),
-  //pass that text to the postMessage method on the messageService object which will
-  //then post it to the backend.
+  $scope.reverseMessage = function(text){
+    return messageService.reverseMessage(text);
+  }
+
   $scope.postMessage = function(message){
     messageService.postMessage(message);
   }
 
+  $scope.isMagicWord = function(message){
+    return messageService.isMagicWord(message);
+  }
+
   setInterval(function(){
     $scope.getMessages();
-
-  }, 1500)
+    $scope.isMagic = $scope.isMagicWord($scope.messages[$scope.messages.length-1].message);
+    console.log($scope.isMagic);
+    if($scope.isMagic === true){
+      $scope.postMessage("Do NOT say the magic word! It is forbidden!");
+    }
+  }, 2000)
 
 })

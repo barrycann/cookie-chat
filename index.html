@@ -15,7 +15,8 @@
       <input class="form-control text-box" type="text" ng-model="filterPredicate" placeholder="Filter"/>
       <div class="messages-container">
         <div class="chat-message"ng-repeat="message in messages | orderBy:'-createdAt' | filter: filterPredicate">
-          <div class="message-text">{{message.message}}</div><div class="message-time">{{convertTime(message.createdAt)}}</div>
+          <div class="message-text">{{message.message}}</div>
+          <div class="message-time">{{convertTime(message.createdAt)}}</div>
         </div>
       </div>
     </div>
